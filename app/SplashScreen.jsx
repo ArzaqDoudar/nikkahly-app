@@ -5,11 +5,12 @@ import { Animated, Dimensions, StyleSheet } from "react-native";
 // import SecLogo from "../assets/images/nikkahly-logo.png";
 // import RedLogo from "../assets/images/red.png";
 
-import NikkahlyLogoName from "../assets/images/nikkahly-logo-name.png";
-import PrimaryLogo from "../assets/images/nikkahly-primary-logo.svg";
-import SecondaryLogo from "../assets/images/nikkahly-secondary-logo.svg";
-const PRIMARY = "#55142A";
-const SECONDARY = "#FFF3E3";
+import NikkahlyLogoName from "../assets/images/logos/nikkahly-logo-name.png";
+import PrimaryLogo from "../assets/images/logos/nikkahly-primary-logo.svg";
+import SecondaryLogo from "../assets/images/logos/nikkahly-secondary-logo.svg";
+import { COLORS } from "../constants/colors";
+const PRIMARY = COLORS.primary;
+const SECONDARY = COLORS.secondary;
 const { width } = Dimensions.get("window");
 
 export default function SplashScreen() {
@@ -26,7 +27,7 @@ export default function SplashScreen() {
   useEffect(() => {
     Animated.sequence([
       // Step 1: Zoom in
-      Animated.delay(1000),
+      Animated.delay(500),
       Animated.timing(scaleAnim, {
         toValue: 150,
         duration: 1000,
@@ -36,7 +37,7 @@ export default function SplashScreen() {
       // Step 2: Fade out the zoomed logo (remove it visually)
       Animated.timing(logoOpacity, {
         toValue: 0,
-        duration: 300,
+        duration: 1000,
         useNativeDriver: true,
       }),
 
@@ -62,20 +63,22 @@ export default function SplashScreen() {
       ]),
 
       // Step 5: Move logo left + fade in company name
+
+      Animated.delay(100),
       Animated.parallel([
         Animated.timing(logoTranslateX, {
           toValue: -width * 0.2,
-          duration: 600,
+          duration: 900,
           useNativeDriver: true,
         }),
         Animated.timing(nameOpacity, {
           toValue: 1,
-          duration: 700,
+          duration: 1000,
           useNativeDriver: true,
         }),
         Animated.timing(nameTranslateX, {
           toValue: 0,
-          duration: 700,
+          duration: 1000,
           useNativeDriver: true,
         }),
       ]),
@@ -86,7 +89,7 @@ export default function SplashScreen() {
       //   router.replace("/home");
     });
 
-    setTimeout(() => setShowPrimaryLogo(false), 2000);
+    setTimeout(() => setShowPrimaryLogo(false), 1800);
   }, []);
 
   const backgroundColor = bgColor.interpolate({
@@ -126,21 +129,6 @@ export default function SplashScreen() {
         ]}
         resizeMode="contain"
       />
-
-      {/* <Image
-        source={NikkahlyLogoName}
-        style={[styles.name, { opacity: nameOpacity }]}
-      /> */}
-      {/* <Animated.View
-        style={[
-          {
-            opacity: nameOpacity,
-            ,
-          },
-        ]}
-      >
-        <Image source={NikkahlyLogoName} style={styles.name} />
-      </Animated.View> */}
     </Animated.View>
   );
 }
